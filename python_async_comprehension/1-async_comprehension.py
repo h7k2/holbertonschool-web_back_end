@@ -10,8 +10,10 @@ from 0-async_generator import async_generator
 
 async def async_comprehension() -> List[float]:
     """
-    Collect 10 random numbers asynchronously using an async comprehension.
+    Collect 10 random numbers using an async comprehension
+    over async_generator(), and return them as a list.
+
     Returns:
-        List of 10 random floats.
+        List[float]: 10 random numbers asynchronously generated.
     """
     return [i async for i in async_generator()]
