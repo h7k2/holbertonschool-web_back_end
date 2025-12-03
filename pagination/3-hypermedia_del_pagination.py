@@ -4,7 +4,6 @@ Deletion-resilient hypermedia pagination
 """
 
 import csv
-import math
 from typing import List, Dict
 
 
@@ -43,17 +42,19 @@ class Server:
         if index is None:
             index = 0
 
-        assert index >= 0
+        assert isinstance(index, int) and index >= 0
 
         indexed_data = self.indexed_dataset()
+        max_index = max(indexed_data.keys())
+        assert index <= max_index
+
         data = []
         current = index
-        max_index = max(indexed_data.keys())
 
         while len(data) < page_size and current <= max_index:
-            item = indexed_data.get(current)
-            if item is not None:
-                data.append(item)
+            row = indexed_data.get(current)
+            if row is not None:
+                data.append(row)
             current += 1
 
         return {
